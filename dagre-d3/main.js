@@ -7,4 +7,11 @@ g.addNode("2",    { label: "sum" });
 //g.addEdge(null, "0",  "1", { label: "K-PAX" });
 
 var renderer = new dagreD3.Renderer();
-renderer.run(g, d3.select("svg g"));
+
+vis = d3.select("svg g");
+renderer.run(g, vis);
+//d3.selectAll("g.node").on("click", function(node) { console.log(node); })
+nodes = vis.selectAll("g").on("click", function(d, i) {
+  console.log(d);
+  nodes.attr("class", "selected"); 
+});
