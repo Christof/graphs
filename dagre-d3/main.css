@@ -9,8 +9,12 @@ svg {
   fill: #fff;
 }
 
+.selected text {
+    fill: white;
+}
+
 .selected rect {
-  fill: #f00;
+  fill: #cc0000;
 }
 
 .edgeLabel rect {
@@ -18,7 +22,7 @@ svg {
 }
 
 .edgePath {
-  stroke: # 333;
-  stroke - width : 1.5px;
+  stroke: #333;
+  stroke-width : 1px;
   fill: none;
 }
