@@ -15,16 +15,28 @@ jQuery.each(sentence, function(index, word) {
 
 jQuery.each(sentence, function(index, word) {
   if (word.head) {
-    g.addEdge(null, word.head, word.id, { label: word.relation });
+    g.addEdge(word.id, word.id, word.head, { label: word.relation });
   }
 });
 
+var layout = dagreD3.layout().rankDir("BT");
 var renderer = new dagreD3.Renderer();
 
 vis = d3.select("svg g");
-renderer.run(g, vis);
+renderer.layout(layout).run(g, vis);
+var start = null;
 nodes = vis.selectAll("g.node").on("click", function(d, i) {
   var item = d3.select(this);
+  if (start) {
+    g.delEdge(start);
+    g.addEdge(start, start, d);
+    renderer.run(g, vis);
+    start = null;
+  }
+  else {
+    start = d;
+  }
+
   var classes = item.attr("class");
   if (classes.indexOf(" selected") > 0) {
     item.attr("class", classes.replace(" selected", ""));
