@@ -15,5 +15,11 @@ vis = d3.select("svg g");
 renderer.run(g, vis);
 nodes = vis.selectAll("g.node").on("click", function(d, i) {
   var item = d3.select(this);
-  item.attr("class", "selected");
+  var classes = item.attr("class");
+  if (classes.indexOf(" selected") > 0) {
+    item.attr("class", classes.replace(" selected", ""));
+  }
+  else {
+    item.attr("class", classes + " selected");
+  }
 });
