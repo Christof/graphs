@@ -1,13 +1,23 @@
+var sentence = [
+{id: "0", form: "0"},
+{id: "1", form: "nullum", lemma: "nullus1", postag: "a-s---ma-", head: "3", relation: "ATR"},
+{id: "2", form: "esse", lemma: "sum1", postag: "v--pna---", head: "0", relation: "ExD"},
+{id: "3", form: "aditum", lemma: "aditus2", postag: "n-s---ma-", head: "2", relation: "SBJ"},
+{id: "4", form: "ad", lemma: "ad1", postag: "r--------", head: "3", relation: "AuxP"},
+{id: "5", form: "eos", lemma: "is1", postag: "p-p---ma-", head: "4", relation: "ATR"},
+{id: "6", form: "mercatoribus", lemma: "mercator1", postag: "n-p---md-", head: "2", relation: "ADV"},
+];
 var g = new dagreD3.Digraph();
 
-g.addNode("0",    { label: "0" });
-g.addNode("1",    { label: "Marcus" });
-g.addNode("2",    { label: "rosam" });
-g.addNode("3",    { label: "videt" });
+jQuery.each(sentence, function(index, word) {
+  g.addNode(word.id, { label: word.form });
+});
 
-g.addEdge(null, "0", "3", { label: "PRED" });
-g.addEdge(null, "3", "1", { label: "SUBJ" });
-g.addEdge(null, "3", "2", { label: "PRED" });
+jQuery.each(sentence, function(index, word) {
+  if (word.head) {
+    g.addEdge(null, word.head, word.id, { label: word.relation });
+  }
+});
 
 var renderer = new dagreD3.Renderer();
 
